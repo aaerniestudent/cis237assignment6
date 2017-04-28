@@ -135,4 +135,12 @@ the culprit, but I don't know which ones.
 
 ## Outside Resources Used
 
+Bootstrap Theme: https://bootswatch.com/
+
 ## Known Problems, Issues, And/Or Errors in the Program
+
+none
+
+## Extra Credit Done
+
+none, I can afford to be lazy on this one.

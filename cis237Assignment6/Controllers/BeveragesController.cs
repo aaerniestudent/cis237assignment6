@@ -18,8 +18,10 @@ namespace cis237Assignment6.Controllers
         // GET: Beverages
         public ActionResult Index()
         {
+            //DbSet for filtering
             DbSet<Beverage> BeveragesToFilter = db.Beverages;
 
+            //default filter variables, if there is no filter these are the defaults that will return every record
             string filterName = "";
             string filterPack = "";
             string filterMin = "";
@@ -28,14 +30,18 @@ namespace cis237Assignment6.Controllers
             decimal min = 0;
             decimal max = 100000m;
 
+            //check if the filter has been filled out for each option
+            //Beverage Name example: Boone's Strawberry Hill
             if (Session["name"] != null && !String.IsNullOrWhiteSpace((string)Session["name"]))
             {
                 filterName = (string)Session["name"];
             }
+            //Pack example: 750 ml
             if (Session["pack"] != null && !String.IsNullOrWhiteSpace((string)Session["pack"]))
             {
                 filterPack = (string)Session["pack"];
             }
+            //Price example: 67.45 
             if (Session["min"] != null && !String.IsNullOrWhiteSpace((string)Session["min"]))
             {
                 filterMin = (string)Session["min"];
@@ -47,17 +53,20 @@ namespace cis237Assignment6.Controllers
                 max = Decimal.Parse(filterMax);
             }
 
+            //where with all of the scenarios
             IEnumerable<Beverage> filtered = BeveragesToFilter.Where(beverage => beverage.price >= min
                                                                && beverage.price <= max
                                                                && beverage.name.Contains(filterName)
                                                                && beverage.pack.Contains(filterPack));
             IEnumerable<Beverage> finalFiltered = filtered.ToList();
 
+            //return the values for the view to add all view
             ViewBag.filterName = filterName;
             ViewBag.filterPack = filterPack;
             ViewBag.filterMin = filterMin;
             ViewBag.filterMax = filterMax;
 
+            //show filter
             return View(finalFiltered);
         }
 
@@ -169,6 +178,7 @@ namespace cis237Assignment6.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Filter()
         {
+            //get filter input from view
             string name = Request.Form.Get("name");
             string pack = Request.Form.Get("pack");
             string min = Request.Form.Get("min");
