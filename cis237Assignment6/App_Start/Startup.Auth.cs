@@ -25,7 +25,12 @@ namespace cis237Assignment6
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                //******************
+                //when trying to access a page that requires login, it will redirect to the homepage
+                LoginPath = new PathString("/Home/Index"),
+                //old
+                //LoginPath = new PathString("/Account/Login"),
+                //******************
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
